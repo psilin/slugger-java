@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: src.downloader.Downloader
+Class-Path: gson-2.12.1.jar postgresql-42.7.5.jar
+

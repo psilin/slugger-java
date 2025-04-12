@@ -1,5 +1,11 @@
 # slugger-java
 Implementation of a slugger service in Java.
 
-java -cp lib/gson-2.12.1.jar:target/downloader.jar src.downloader.Downloader 20
+# To start the database:
+docker compose up
 
+# To build:
+./build.sh
+
+# To run downloader script downloading 4 slugs:
+java -jar target/downloader.jar 4

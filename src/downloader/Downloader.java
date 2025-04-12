@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import src.db.SlugsDB;
 import src.model.Slug;
 import src.model.SlugList;
 
@@ -71,6 +72,19 @@ public class Downloader {
                 workers[i].join();
 
             System.out.println(outQueue.toString());
+            try (SlugsDB db = new SlugsDB()) {
+                System.out.println(String.format("Talking to db! %s", db.toString()));
+                while (true) {
+                    Slug s = outQueue.poll();
+                    if (s == null) {
+                        return;
+                    }
+                    int id = db.Save(s);
+                    System.out.println(String.format("Saved slug %s with id: %d", s.toString(), id));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
